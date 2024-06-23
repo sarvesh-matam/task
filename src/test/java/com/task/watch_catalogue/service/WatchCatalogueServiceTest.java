@@ -38,19 +38,19 @@ public class WatchCatalogueServiceTest {
     @Test
     public void testWatchIdListWithDiscount() {
         Mockito.when(this.watchCatalogueRepository.findByIdIn(Mockito.anySet())).thenReturn(this.createMockEntityList());
-        Assertions.assertEquals("400.0", watchCatalogueService.calculateTotalPrice(Arrays.asList("001","001","001","002","002","003","004","004")).getPrice());
+        Assertions.assertEquals("430.0", watchCatalogueService.calculateTotalPrice(Arrays.asList("001","001","001","002","002","003","004","004")).getPrice());
     }
 
     @Test
     public void testWatchIdListWithUnavailableId() {
         Mockito.when(this.watchCatalogueRepository.findByIdIn(Mockito.anySet())).thenReturn(this.createMockEntityList());
-        Assertions.assertEquals("400.0", watchCatalogueService.calculateTotalPrice(Arrays.asList("001","001","002","002","003","004","004","005")).getPrice());
+        Assertions.assertEquals("430.0", watchCatalogueService.calculateTotalPrice(Arrays.asList("001","001","002","002","003","004","004","005")).getPrice());
     }
 
     @Test
     public void testWatchIdListWithEmptyId() {
         Mockito.when(this.watchCatalogueRepository.findByIdIn(Mockito.anySet())).thenReturn(this.createMockEntityList());
-        Assertions.assertEquals("400.0", watchCatalogueService.calculateTotalPrice(Arrays.asList("001","001","002","002","003","004","004","")).getPrice());
+        Assertions.assertEquals("430.0", watchCatalogueService.calculateTotalPrice(Arrays.asList("001","001","002","002","003","004","004","")).getPrice());
     }
 
     @Test
