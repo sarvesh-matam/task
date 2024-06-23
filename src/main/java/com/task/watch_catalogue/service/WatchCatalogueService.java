@@ -1,5 +1,6 @@
 package com.task.watch_catalogue.service;
 
+import com.task.watch_catalogue.dto.WatchCatalogueCheckoutResponse;
 import com.task.watch_catalogue.entity.WatchCatalogueEntity;
 import com.task.watch_catalogue.repository.WatchCatalogueRepository;
 import org.apache.logging.log4j.LogManager;
@@ -19,13 +20,13 @@ public class WatchCatalogueService {
     @Autowired
     WatchCatalogueRepository watchCatalogueRepository;
 
-    public String calculateTotalPrice(List<String> watchIdList) {
+    public WatchCatalogueCheckoutResponse calculateTotalPrice(List<String> watchIdList) {
         if(watchIdList.isEmpty()) {
-            return "0";
+            return new WatchCatalogueCheckoutResponse("0");
         }
         SortedMap<String,Integer> uniqueWatchIdWithCount = mapUniqueWatchIdsWithCount(watchIdList);
         TreeSet<WatchCatalogueEntity> watchCatalogueEntitySet = new TreeSet<>(watchCatalogueRepository.findByIdIn(uniqueWatchIdWithCount.keySet()));
-        return calculateTotalPriceOfCart(uniqueWatchIdWithCount, watchCatalogueEntitySet);
+        return new WatchCatalogueCheckoutResponse(calculateTotalPriceOfCart(uniqueWatchIdWithCount, watchCatalogueEntitySet));
     }
 
     private String calculateTotalPriceOfCart(SortedMap<String, Integer> uniqueWatchIdWithCount, TreeSet<WatchCatalogueEntity> watchCatalogueEntitySet) {
