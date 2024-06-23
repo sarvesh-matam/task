@@ -51,4 +51,14 @@ public class WatchCatalogueEntity implements Comparable<WatchCatalogueEntity>{
     public int compareTo(WatchCatalogueEntity o) {
         return this.id.compareTo(o.id);
     }
+
+    public WatchCatalogueEntity(String id, String name, float unitPrice, String discount) {
+        this.id = id;
+        this.name = name;
+        this.unitPrice = unitPrice;
+        this.discount = discount;
+    }
+
+    public WatchCatalogueEntity() {
+    }
 }
