@@ -20,30 +20,23 @@ public class WatchCatalogueIntegrationTest {
     private MockMvc mockMvc;
 
     @Test
-    public void testCheckoutIntegrationSuccess() throws Exception {
+    public void testCheckoutIntegrationWithoutDiscount() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/checkout")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("[\n" +
                         "\"001\",\n" +
-                        "\"001\",\n" +
-                        "\"001\",\n" +
                         "\"004\",\n" +
                         "\"003\",\n" +
-                        "\"006\",\n" +
-                        "\"007\",\n" +
-                        "\"009\",\n" +
-                        "\"\",\n" +
-                        "\"002\",\n" +
                         "\"002\"\n" +
                         "]"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.price").exists())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.price").value("450.0"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.price").value("260.0"));
 
     }
 
     @Test
-    public void testCheckoutIntegrationNullInput() throws Exception {
+    public void testCheckoutIntegrationWithNullInput() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/checkout")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
@@ -51,7 +44,7 @@ public class WatchCatalogueIntegrationTest {
     }
 
     @Test
-    public void testCheckoutIntegrationEmptyInput() throws Exception {
+    public void testCheckoutIntegrationWithEmptyInput() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/checkout")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("[]"))
@@ -59,5 +52,59 @@ public class WatchCatalogueIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.price").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.price").value("0"));
 
+    }
+
+    @Test
+    public void testCheckoutIntegrationWithDiscount() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/checkout")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("[\n" +
+                                "\"001\",\n" +
+                                "\"001\",\n" +
+                                "\"001\",\n" +
+                                "\"004\",\n" +
+                                "\"003\",\n" +
+                                "\"002\",\n" +
+                                "\"002\"\n" +
+                                "]"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.price").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.price").value("450.0"));
+    }
+
+    @Test
+    public void testCheckoutIntegrationWithEmptyId() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/checkout")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("[\n" +
+                                "\"001\",\n" +
+                                "\"001\",\n" +
+                                "\"001\",\n" +
+                                "\"004\",\n" +
+                                "\"\",\n" +
+                                "\"002\",\n" +
+                                "\"002\"\n" +
+                                "]"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.price").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.price").value("400.0"));
+    }
+
+    @Test
+    public void testCheckoutIntegrationWithUnavailableId() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/checkout")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("[\n" +
+                                "\"001\",\n" +
+                                "\"001\",\n" +
+                                "\"001\",\n" +
+                                "\"004\",\n" +
+                                "\"009\",\n" +
+                                "\"002\",\n" +
+                                "\"002\"\n" +
+                                "]"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.price").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.price").value("400.0"));
     }
 }
