@@ -3,6 +3,7 @@ package com.task.watch_catalogue.service;
 import com.task.watch_catalogue.entity.WatchCatalogueEntity;
 import com.task.watch_catalogue.repository.WatchCatalogueRepository;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,9 +30,33 @@ public class WatchCatalogueServiceTest {
     }
 
     @Test
-    public void testUniqueWatchIdList() {
+    public void testWatchIdListWithoutDiscount() {
         Mockito.when(this.watchCatalogueRepository.findByIdIn(Mockito.anySet())).thenReturn(this.createMockEntityList());
         Assertions.assertEquals("260.0", watchCatalogueService.calculateTotalPrice(Arrays.asList("001","002","003","004")).getPrice());
+    }
+
+    @Test
+    public void testWatchIdListWithDiscount() {
+        Mockito.when(this.watchCatalogueRepository.findByIdIn(Mockito.anySet())).thenReturn(this.createMockEntityList());
+        Assertions.assertEquals("400.0", watchCatalogueService.calculateTotalPrice(Arrays.asList("001","001","001","002","002","003","004","004")).getPrice());
+    }
+
+    @Test
+    public void testWatchIdListWithUnavailableId() {
+        Mockito.when(this.watchCatalogueRepository.findByIdIn(Mockito.anySet())).thenReturn(this.createMockEntityList());
+        Assertions.assertEquals("400.0", watchCatalogueService.calculateTotalPrice(Arrays.asList("001","001","002","002","003","004","004","005")).getPrice());
+    }
+
+    @Test
+    public void testWatchIdListWithEmptyId() {
+        Mockito.when(this.watchCatalogueRepository.findByIdIn(Mockito.anySet())).thenReturn(this.createMockEntityList());
+        Assertions.assertEquals("400.0", watchCatalogueService.calculateTotalPrice(Arrays.asList("001","001","002","002","003","004","004","")).getPrice());
+    }
+
+    @Test
+    public void testWatchIdListWithMoreThanOneTimeDiscount() {
+        Mockito.when(this.watchCatalogueRepository.findByIdIn(Mockito.anySet())).thenReturn(this.createMockEntityList());
+        Assertions.assertEquals("630.0", watchCatalogueService.calculateTotalPrice(Arrays.asList("001","001","001","002","002","002","002","002","003","004","004")).getPrice());
     }
 
     private List<WatchCatalogueEntity> createMockEntityList() {
