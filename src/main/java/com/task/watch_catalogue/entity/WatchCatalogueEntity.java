@@ -6,19 +6,19 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "watch_catalogue")
-public class WatchCatalogueEntity {
+public class WatchCatalogueEntity implements Comparable<WatchCatalogueEntity>{
 
     @Id
-    private int id;
+    private String id;
     private String name;
     private float unitPrice;
     private String discount;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -44,5 +44,11 @@ public class WatchCatalogueEntity {
 
     public void setDiscount(String discount) {
         this.discount = discount;
+    }
+
+
+    @Override
+    public int compareTo(WatchCatalogueEntity o) {
+        return this.id.compareTo(o.id);
     }
 }
