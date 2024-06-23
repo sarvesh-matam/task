@@ -35,7 +35,7 @@ public class WatchCatalogueService {
             int count = uniqueWatchIdWithCount.get(entity.getId());
             float unitPrice = entity.getUnitPrice();
             if (count == 1 || "".equals(entity.getDiscount())) {
-                totalPrice = totalPrice + unitPrice;
+                totalPrice = totalPrice + (count*unitPrice);
             } else {
                 String[] discount = entity.getDiscount().split(" ");
                 int discountNumber= Integer.parseInt(discount[0]);
