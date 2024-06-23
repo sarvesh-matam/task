@@ -24,14 +24,14 @@ public class WatchCatalogueServiceTest {
 
     @Test
     public void testEmptyWatchIdList() {
-        Assertions.assertEquals("0", watchCatalogueService.calculateTotalPrice(List.of()));
+        Assertions.assertEquals("0", watchCatalogueService.calculateTotalPrice(List.of()).getPrice());
 
     }
 
     @Test
     public void testUniqueWatchIdList() {
         Mockito.when(this.watchCatalogueRepository.findByIdIn(Mockito.anySet())).thenReturn(this.createMockEntityList());
-        Assertions.assertEquals("260.0", watchCatalogueService.calculateTotalPrice(Arrays.asList("001","002","003","004")));
+        Assertions.assertEquals("260.0", watchCatalogueService.calculateTotalPrice(Arrays.asList("001","002","003","004")).getPrice());
     }
 
     private List<WatchCatalogueEntity> createMockEntityList() {
