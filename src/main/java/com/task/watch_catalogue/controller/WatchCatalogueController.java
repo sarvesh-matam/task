@@ -1,5 +1,6 @@
 package com.task.watch_catalogue.controller;
 
+import com.task.watch_catalogue.dto.WatchCatalogueCheckoutResponse;
 import com.task.watch_catalogue.service.WatchCatalogueService;
 import jakarta.annotation.Nonnull;
 import org.apache.logging.log4j.LogManager;
@@ -21,7 +22,7 @@ public class WatchCatalogueController {
     WatchCatalogueService watchCatalogueService;
 
     @PostMapping("checkout")
-    public ResponseEntity<String> calculateTotalPrice(@RequestBody @Nonnull List<String> watchIdList) {
+    public ResponseEntity<WatchCatalogueCheckoutResponse> calculateTotalPrice(@RequestBody @Nonnull List<String> watchIdList) {
         return new ResponseEntity<>(watchCatalogueService.calculateTotalPrice(watchIdList), HttpStatus.OK);
     }
 }
