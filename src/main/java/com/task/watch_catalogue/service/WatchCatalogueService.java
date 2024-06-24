@@ -8,10 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.SortedMap;
-import java.util.TreeSet;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 
 @Service
 public class WatchCatalogueService {
@@ -28,17 +25,17 @@ public class WatchCatalogueService {
         if(watchIdList.isEmpty()) {
             return new WatchCatalogueCheckoutResponse("0");
         }
-        SortedMap<String,Integer> uniqueWatchIdWithCount = mapUniqueWatchIdsWithCount(watchIdList);
+        Map<String,Integer> uniqueWatchIdWithCountMap = mapUniqueWatchIdsWithCount(watchIdList);
         if(log.isDebugEnabled()){
-            uniqueWatchIdWithCount.forEach((key, value) -> log.debug("Id: {}, Count: {}", key, value));
+            uniqueWatchIdWithCountMap.forEach((key, value) -> log.debug("Id: {}, Count: {}", key, value));
         }
-        TreeSet<WatchCatalogueEntity> watchCatalogueEntitySet = new TreeSet<>(watchCatalogueRepository.findByIdIn(uniqueWatchIdWithCount.keySet()));
-        return new WatchCatalogueCheckoutResponse(calculateTotalPriceOfCart(uniqueWatchIdWithCount, watchCatalogueEntitySet));
+        List<WatchCatalogueEntity> watchCatalogueEntityList = watchCatalogueRepository.findByIdIn(uniqueWatchIdWithCountMap.keySet());
+        return new WatchCatalogueCheckoutResponse(calculateTotalPriceOfCart(uniqueWatchIdWithCountMap, watchCatalogueEntityList));
     }
 
-    private String calculateTotalPriceOfCart(SortedMap<String, Integer> uniqueWatchIdWithCount, TreeSet<WatchCatalogueEntity> watchCatalogueEntitySet) {
+    private String calculateTotalPriceOfCart(Map<String, Integer> uniqueWatchIdWithCount, List<WatchCatalogueEntity> watchCatalogueEntityList) {
         float totalPrice = 0;
-        for (WatchCatalogueEntity entity : watchCatalogueEntitySet) {
+        for (WatchCatalogueEntity entity : watchCatalogueEntityList) {
             int count = uniqueWatchIdWithCount.get(entity.getId());
             float unitPrice = entity.getUnitPrice();
             if (count == 1 || "".equals(entity.getDiscount())) {
@@ -65,9 +62,9 @@ public class WatchCatalogueService {
         return String.valueOf(totalPrice);
     }
 
-    private SortedMap<String, Integer> mapUniqueWatchIdsWithCount(List<String> watchIdList) {
+    private Map<String, Integer> mapUniqueWatchIdsWithCount(List<String> watchIdList) {
         log.info("mapUniqueWatchIdsWithCount :: Map unique watch id with it's count as a key value pair");
-        SortedMap<String, Integer> uniqueWatchIdWithCount = new TreeMap<>();
+        Map<String, Integer> uniqueWatchIdWithCount = new HashMap<>();
         for (String id : watchIdList) {
             if (uniqueWatchIdWithCount.containsKey(id)){
                 int count = uniqueWatchIdWithCount.get(id);
