@@ -10,8 +10,16 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: none
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         format_sql: true
         default_schema: task
+
+logging:
+  level:
+    root: INFO
+    com.task: INFO
+    org.springframework.web: WARN
+    org.hibernate: ERROR
+
