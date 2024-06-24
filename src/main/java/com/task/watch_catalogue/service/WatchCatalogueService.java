@@ -3,8 +3,6 @@ package com.task.watch_catalogue.service;
 import com.task.watch_catalogue.dto.WatchCatalogueCheckoutResponse;
 import com.task.watch_catalogue.entity.WatchCatalogueEntity;
 import com.task.watch_catalogue.repository.WatchCatalogueRepository;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +14,6 @@ import java.util.TreeMap;
 @Service
 public class WatchCatalogueService {
 
-    private static final Logger log = LogManager.getLogger(WatchCatalogueService.class);
     @Autowired
     WatchCatalogueRepository watchCatalogueRepository;
 
