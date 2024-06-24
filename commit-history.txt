@@ -1,0 +1,137 @@
+commit 0c97785bb47e9063b37bf2a0f99b7cc75398281e (origin/refactor/checkoutendpoint, refactor/checkoutendpoint)
+Author: Nagasarveswariaah Matam <sarvesh.matam@gmail.com>
+Date:   Mon Jun 24 23:07:49 2024 +0530
+
+    Refactor : Change sorted map to hash map & treeset to list for better performance
+
+
+commit 502b39eeb558f5ae3ed9fb8eb61f878c9d27e551 (HEAD -> feature/log-implementation, origin/feature/log-implementation)
+Author: Nagasarveswariaah Matam <sarvesh.matam@gmail.com>
+Date:   Mon Jun 24 22:49:19 2024 +0530
+
+    feature : Implement logging to service layer
+    - Add info level logs
+    - Add debug level logs
+
+
+commit d2bfc9df81abca3674830a385a58a4554b5dd2a1
+Author: Nagasarveswariaah Matam <sarvesh.matam@gmail.com>
+Date:   Mon Jun 24 05:41:24 2024 +0530
+
+    Refactor : Refactor the code to comply with sonarlint
+
+
+commit df71abdb33aa3897023706da3e0de0f2a29884cd
+Author: Nagasarveswariaah Matam <sarvesh.matam@gmail.com>
+Date:   Mon Jun 24 05:20:39 2024 +0530
+
+    Bug : Fix junit assertion failure
+    - testWatchIdListWithDiscount
+    - testWatchIdListWithUnavailableId
+    - testWatchIdListWithEmptyId
+
+
+commit 6e9f40b200200756ca92dc73a154c573ff1ddbaf
+Author: Nagasarveswariaah Matam <sarvesh.matam@gmail.com>
+Date:   Mon Jun 24 05:14:20 2024 +0530
+
+    feature : Implement additional unit test cases
+    - Add test case for with discount input
+    - Add test case for unavailable watch id
+    - Add test case for empty watch id
+    - Add test case for more than one time discount
+
+
+commit d99cd1d068eea79a56a576fe5fa7f2877d5a45ba
+Author: Nagasarveswariaah Matam <sarvesh.matam@gmail.com>
+Date:   Mon Jun 24 04:54:58 2024 +0530
+
+    feature : Implement additional integration test cases
+    - Add integration test for discount input
+    - Add integration test for empty id input
+    - Add integration test for unavailable id input
+
+
+commit f63904c48dcba21b9af7fe0c33290096b8dd0b29
+Author: Nagasarveswariaah Matam <sarvesh.matam@gmail.com>
+Date:   Sun Jun 23 22:07:21 2024 +0530
+
+    Bug : Fix the issue of watch id without discount consider only one irrespective of input count
+    For example if the input is [003,003] and no discount for the id 003 in db then actual sum should be 2*unit price
+    but considering only once, 1*unit price
+
+
+commit 979a4e8a3cc2ad327f6b0d241ee008eaa8139217
+Author: Nagasarveswariaah Matam <sarvesh.matam@gmail.com>
+Date:   Sun Jun 23 21:09:12 2024 +0530
+
+    Bug : Fix the issue in unit test cases which is occured due to fix/response-format branch merge
+
+
+
+commit 3716a211866b3f5d378e8362da86ee12b54c9945
+Author: Nagasarveswariaah Matam <sarvesh.matam@gmail.com>
+Date:   Sun Jun 23 21:05:13 2024 +0530
+
+    Update README.md documentation with clear and concise information
+
+
+commit a2d481e3e8cc3b3e92cb2eee18c5e736e460c782
+Author: Nagasarveswariaah Matam <sarvesh.matam@gmail.com>
+Date:   Sun Jun 23 20:14:21 2024 +0530
+
+    test : Implement integration test covers the below scenarios
+    - success scnerario
+    - Null input scenario
+    - Empty list input scenario
+
+
+commit 2ef5939d99a37e949f788b00fba4961e6127e3b5
+Author: Nagasarveswariaah Matam <sarvesh.matam@gmail.com>
+Date:   Sun Jun 23 19:52:16 2024 +0530
+
+    fix : Update response format
+
+
+
+commit 256305a5d3d3c44b4c7be3b220169226fdf1a57e
+Author: Nagasarveswariaah Matam <sarvesh.matam@gmail.com>
+Date:   Sun Jun 23 19:03:54 2024 +0530
+
+    test : Implement Jnuit test cases for Service classes
+    - Implement test case to cover empty list
+    - Implement test case to cover unique watch list id imput
+
+
+
+commit c22ca1a5bab42017fced57e0e9d34cfc036518c7
+Author: Nagasarveswariaah Matam <sarvesh.matam@gmail.com>
+Date:   Sun Jun 23 18:24:45 2024 +0530
+
+    feature : Develop checkout endpoint to calculate total price
+
+
+commit 99dd1530923bf92d920d279c84166936dad3b131
+Author: Nagasarveswariaah Matam <sarvesh.matam@gmail.com>
+Date:   Sun Jun 23 16:43:14 2024 +0530
+
+    feature : configure postgresql db and create entity class
+
+
+commit 5eccfe211a48ee95fa42358fdc8ef89f455b08ad
+Author: Nagasarveswariaah Matam <sarvesh.matam@gmail.com>
+Date:   Sun Jun 23 15:58:37 2024 +0530
+
+    feature : Create package structure for development ^
+    - Create controller, service, repository, dto, entity package and classes
+
+commit 5cb0442bc478efab664346a72fd79a4d79e6e60f
+Author: Nagasarveswariaah Matam <sarvesh.matam@gmail.com>
+Date:   Sun Jun 23 15:45:11 2024 +0530
+
+    Initial commit
+    
+    - Set up a new Spring Boot project
+    - Add essential dependencies (Spring Web, Spring Data JPA, Postgresql Database, etc.)
+    - Create basic project structure
+    - Include initial README and .gitignore files
